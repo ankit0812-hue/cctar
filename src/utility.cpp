@@ -37,13 +37,13 @@ void Utility::createArchive(const char* outname,const char** fileNames) {
 
   a = archive_write_new();
   archive_write_add_filter_gzip(a);
-  archive_write_set_format_pax_restricted(a); // Note 1
+  archive_write_set_format_pax_restricted(a);
   archive_write_open_filename(a, outname);
   while (*fileNames) {
     stat(*fileNames, &st);
-    entry = archive_entry_new(); // Note 2
+    entry = archive_entry_new();
     archive_entry_set_pathname(entry, *fileNames);
-    archive_entry_set_size(entry, st.st_size); // Note 3
+    archive_entry_set_size(entry, st.st_size);
     archive_entry_set_filetype(entry, AE_IFREG);
     archive_entry_set_perm(entry, 0644);
     archive_write_header(a, entry);
